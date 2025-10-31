@@ -1,31 +1,29 @@
 
 
 
-
-
 [workspace]
 resolver = "2"
 members = [
-    "pingora",
-    "pingora-core",
-    "pingora-pool",
-    "pingora-error",
-    "pingora-limits",
-    "pingora-timeout",
-    "pingora-header-serde",
-    "pingora-proxy",
-    "pingora-cache",
-    "pingora-http",
-    "pingora-lru",
-    "pingora-openssl",
-    "pingora-boringssl",
-    "pingora-runtime",
-    "pingora-rustls",
-    "pingora-s2n",
-    "pingora-ketama",
-    "pingora-load-balancing",
-    "pingora-memory-cache",
-    "tinyufo",
+  "pingora",
+  "pingora-core",
+  "pingora-pool",
+  "pingora-error",
+  "pingora-limits",
+  "pingora-timeout",
+  "pingora-header-serde",
+  "pingora-proxy",
+  "pingora-cache",
+  "pingora-http",
+  "pingora-lru",
+  "pingora-openssl",
+  "pingora-boringssl",
+  "pingora-runtime",
+  "pingora-rustls",
+  "pingora-s2n",
+  "pingora-ketama",
+  "pingora-load-balancing",
+  "pingora-memory-cache",
+  "tinyufo",
 ]
 
 [workspace.dependencies]

@@ -265,9 +265,11 @@ impl<SV> HttpProxy<SV> {
                     .await?;
                 None
             }
-            HttpTask::Body(data, eos) => self
-                .inner
-                .upstream_response_body_filter(session, data, *eos, ctx)?,
+            HttpTask::Body(data, eos) => {
+                self.inner
+                    .upstream_response_body_filter(session, data, *eos, ctx)
+                    .await?
+            }
             HttpTask::Trailer(Some(trailers)) => {
                 self.inner
                     .upstream_response_trailer_filter(session, trailers, ctx)?;
@@ -903,7 +905,7 @@ use pingora_core::services::listening::Service;
 /// The returned [Service] can be hosted by a [pingora_core::server::Server] directly.
 pub fn http_proxy_service<SV>(conf: &Arc<ServerConf>, inner: SV) -> Service<HttpProxy<SV>>
 where
-    SV: ProxyHttp,
+    SV: ProxyHttp + Sync,
 {
     http_proxy_service_with_name(conf, inner, "Pingora HTTP Proxy Service")
 }
@@ -917,7 +919,7 @@ pub fn http_proxy_service_with_name<SV>(
     name: &str,
 ) -> Service<HttpProxy<SV>>
 where
-    SV: ProxyHttp,
+    SV: ProxyHttp + Sync,
 {
     let mut proxy = HttpProxy::new(inner, conf.clone());
     proxy.handle_init_modules();
