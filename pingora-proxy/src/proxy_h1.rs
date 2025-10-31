@@ -556,7 +556,8 @@ impl<SV> HttpProxy<SV> {
                 let mut data = range_body_filter.filter_body(data);
                 if let Some(duration) = self
                     .inner
-                    .response_body_filter(session, &mut data, end, ctx)?
+                    .response_body_filter(session, &mut data, end, ctx)
+                    .await?
                 {
                     trace!("delaying downstream response for {:?}", duration);
                     time::sleep(duration).await;
